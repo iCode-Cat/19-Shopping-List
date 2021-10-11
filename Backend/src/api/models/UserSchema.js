@@ -10,6 +10,7 @@ const userSchema = new mongoose.Schema({
   },
   password: {
     type: String,
+    required: [true, 'Password cannot be empty.'],
     min: [8, 'Password must be at least 8 characters.'],
     trim: true,
   },
@@ -19,7 +20,7 @@ const userSchema = new mongoose.Schema({
   },
   register_date: {
     type: String,
-    default: () => moment().format('DD - MM - YYYY hh:m'),
+    default: () => moment().format('DD/MM/YYYY hh:mm'),
   },
 });
 

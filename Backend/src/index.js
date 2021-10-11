@@ -34,6 +34,7 @@ app.use(
 // Passport Authentication
 app.use(passport.initialize());
 app.use(passport.session());
+require('./config/passport');
 
 // Connect Database
 connectDB();
