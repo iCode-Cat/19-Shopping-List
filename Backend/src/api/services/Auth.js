@@ -9,15 +9,15 @@ module.exports.registerUser = async (res, body) => {
   } catch (error) {
     // Username already exists
     if (error.code === 11000) {
-      throw new TypeError(error.message);
+      throw new TypeError('This user exists');
     }
     // Username required
-    if (error.errors.username.message) {
-      throw new TypeError(error);
+    if (error.errors.username) {
+      throw new TypeError('Username cannot be empty');
     }
     // Password required
-    if (error.errors.password.message) {
-      throw new TypeError(error);
+    if (error.errors.password) {
+      throw new TypeError('Password cannot be empty');
     }
     // DB error
     throw new Error(`Server Error`);

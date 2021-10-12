@@ -4,14 +4,14 @@ const moment = require('moment');
 const userSchema = new mongoose.Schema({
   username: {
     type: String,
-    required: [true, 'Username cannot be empty.'],
-    unique: [true, 'This username already taken.'],
+    required: true,
+    unique: true,
     trim: true,
   },
   password: {
     type: String,
-    required: [true, 'Password cannot be empty.'],
-    min: [8, 'Password must be at least 8 characters.'],
+    required: true,
+    min: 8,
     trim: true,
   },
   admin: {

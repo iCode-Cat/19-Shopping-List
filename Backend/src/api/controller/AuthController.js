@@ -6,6 +6,14 @@ module.exports.auth_register_post = async (req, res, next) => {
   try {
     const user = await registerUser(res, req.body);
     res.status(200).send(`User ${user.username} created successfully`);
+    req.logIn(user, (err) => {
+      if (err) {
+        console.log(err);
+        return;
+      }
+      req.session.user = user;
+    });
+    console.log(req.isAuthenticated());
   } catch (error) {
     if (error.name !== 'TypeError') {
       console.log(error);

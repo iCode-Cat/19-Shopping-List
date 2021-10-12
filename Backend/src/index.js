@@ -32,9 +32,9 @@ app.use(
 );
 
 // Passport Authentication
+require('./config/passport');
 app.use(passport.initialize());
 app.use(passport.session());
-require('./config/passport');
 
 // Connect Database
 connectDB();
