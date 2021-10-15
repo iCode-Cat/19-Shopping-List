@@ -3,12 +3,12 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 const initialState = {
-  isAuthenticated: false,
+  isAuthenticated: null,
   user: '',
 };
 
 export const fetchUser = createAsyncThunk('auth/api/user', async () => {
-  const res = await axios.get('/api/auth/user');
+  const res = await axios.get('/api/auth/user', { withCredentials: true });
   return res.data;
 });
 
@@ -21,9 +21,17 @@ export const userSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchUser, (state, action) => {
-      state.isAuthenticated = true;
+    builder.addCase(fetchUser.fulfilled, (state, action) => {
+      console.log(action.payload);
+      if (action.payload === undefined) {
+        state.isAuthenticated = false;
+        return;
+      }
       state.user = action.payload;
+      state.isAuthenticated = true;
+    });
+    builder.addCase(fetchUser.rejected, (state, action) => {
+      state.isAuthenticated = false;
     });
   },
 });

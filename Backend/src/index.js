@@ -28,7 +28,7 @@ app.use(
       collectionName: 'shoppingSession',
     }),
     cookie: {
-      maxAge: 1000 * 60 * 60 * 24,
+      maxAge: 1000 * 60 * 60 * 24 * 7,
     },
   })
 );

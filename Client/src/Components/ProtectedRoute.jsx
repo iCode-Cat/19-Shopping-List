@@ -7,20 +7,22 @@ const ProtectedRoute = ({
   ...rest
 }) => {
   return (
-    <Route
-      {...rest}
-      render={(props) => {
-        if (isAuthenticated) {
-          return <Component />;
-        } else {
-          return (
-            <Redirect
-              to={{ pathname: '/login', state: { from: props.location } }}
-            />
-          );
-        }
-      }}
-    ></Route>
+    isAuthenticated !== null && (
+      <Route
+        {...rest}
+        render={(props) => {
+          if (isAuthenticated) {
+            return <Component />;
+          } else {
+            return (
+              <Redirect
+                to={{ pathname: '/login', state: { from: props.location } }}
+              />
+            );
+          }
+        }}
+      ></Route>
+    )
   );
 };
 

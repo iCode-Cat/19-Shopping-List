@@ -3,17 +3,17 @@ import Test from './Pages/Test';
 import Login from './Pages/Auth/Login';
 import Register from './Pages/Auth/Register';
 import ProtectedRoute from './Components/ProtectedRoute';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { fetchUser } from './Redux/userSlice';
 import { useEffect } from 'react';
 
 function App() {
   const dispatch = useDispatch();
-  const isAuthenticated = true;
-
+  const userState = useSelector((state) => state.user);
+  const isAuthenticated = userState.isAuthenticated;
   useEffect(() => {
     dispatch(fetchUser());
-  }, []);
+  }, [dispatch]);
   return (
     <Router>
       <ProtectedRoute

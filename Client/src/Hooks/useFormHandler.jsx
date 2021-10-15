@@ -18,22 +18,24 @@ export function useFormFields(event) {
 export function useSendUser(data) {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState();
+  const [error, setError] = useState(false);
   const [credentials, setCredentials] = useState({
     url: '',
     data: '',
   });
 
   const postData = async () => {
-    setLoading(true);
     try {
-      const post = await axios.post(credentials.url, credentials.data);
+      const post = await axios.post(credentials.url, credentials.data, {
+        withCredentials: true,
+      });
       console.log(post.data);
       setSuccess(true);
       setLoading(false);
     } catch (error) {
-      console.log(error);
       setSuccess(false);
       setLoading(false);
+      setError(error.response.data);
     }
   };
 
@@ -41,11 +43,17 @@ export function useSendUser(data) {
     if (credentials.data) {
       postData();
     }
+    return () => {
+      setLoading(true);
+      setError(false);
+      setSuccess();
+    };
   }, [credentials]);
   // custom hook returns value
   return [
     loading,
     success,
+    error,
     (data) => {
       setCredentials(data);
     },

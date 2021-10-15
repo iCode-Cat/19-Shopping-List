@@ -8,12 +8,14 @@ const SubmitButton = styled.button``;
 
 const Login = () => {
   const [fields, handleFieldChange] = useFormFields(false);
-  const [loading, success, setCredentials] = useSendUser();
+  const [loading, success, error, setCredentials] = useSendUser();
 
   const formHandler = (e) => {
     e.preventDefault();
     setCredentials({ url: '/api/auth/login', data: fields });
   };
+
+  console.log(error);
 
   return (
     <Form onSubmit={(e) => formHandler(e)}>
@@ -21,6 +23,7 @@ const Login = () => {
       <Input onChange={(e) => handleFieldChange('password', e)} />
       <SubmitButton type='submit'>LOGIN</SubmitButton>
       {loading ? 'LOADING' : 'DONE'}
+      {error && <h1>{error}</h1>}
     </Form>
   );
 };
