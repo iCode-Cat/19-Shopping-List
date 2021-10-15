@@ -1,18 +1,27 @@
-import { useSelector } from 'react-redux';
 import React from 'react';
-import { useFormFields } from '../../Hooks/useFormHandler';
+import styled from 'styled-components';
+import { useFormFields, useSendUser } from '../../Hooks/useFormHandler';
+
+const Form = styled.form``;
+const Input = styled.input``;
+const SubmitButton = styled.button``;
 
 const Login = () => {
-  const [fields, handleFieldChange] = useFormFields({
-    email: '',
-    password: '',
-  });
-  console.log(fields);
+  const [fields, handleFieldChange] = useFormFields(false);
+  const [loading, success, setCredentials] = useSendUser();
+
+  const formHandler = (e) => {
+    e.preventDefault();
+    setCredentials({ url: '/api/auth/login', data: fields });
+  };
+
   return (
-    <div>
-      <input onChange={(e) => handleFieldChange('email', e)} />
-      <input onChange={(e) => handleFieldChange('password', e)} />
-    </div>
+    <Form onSubmit={(e) => formHandler(e)}>
+      <Input onChange={(e) => handleFieldChange('username', e)} />
+      <Input onChange={(e) => handleFieldChange('password', e)} />
+      <SubmitButton type='submit'>LOGIN</SubmitButton>
+      {loading ? 'LOADING' : 'DONE'}
+    </Form>
   );
 };
 
