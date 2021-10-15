@@ -8,13 +8,7 @@ const {
 } = require('../controller/AuthController');
 
 Router.post('/register', auth_register_post);
-Router.post(
-  '/login',
-  passport.authenticate('local', {
-    failureRedirect: '/fail',
-  }),
-  auth_login_post
-);
+Router.post('/login', auth_login_post);
 Router.get('/user', auth_user_get);
 
 module.exports = Router;

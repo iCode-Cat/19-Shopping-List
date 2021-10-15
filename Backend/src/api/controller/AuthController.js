@@ -1,4 +1,5 @@
 const { registerUser } = require('../services/Auth');
+const passport = require('passport');
 
 // @router /api/auth/register
 // @desc POST User Registiration
@@ -25,8 +26,21 @@ module.exports.auth_register_post = async (req, res, next) => {
 
 // @router /api/auth/login
 // @desc POST User Registiration
-module.exports.auth_login_post = (req, res) => {
-  res.send(req.user);
+module.exports.auth_login_post = (req, res, next) => {
+  passport.authenticate('local', function (err, user, info) {
+    if (err) {
+      return next(err);
+    }
+    if (!user) {
+      return res.status(401).send('User Not found');
+    }
+    req.logIn(user, function (err) {
+      if (err) {
+        return next(err);
+      }
+      return res.status(200).send(user);
+    });
+  })(req, res, next);
 };
 
 module.exports.auth_user_get = (req, res) => {
