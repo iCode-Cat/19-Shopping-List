@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const AuthRoute = require('./api/routes/AuthRoute');
 require('dotenv').config();
 const app = express();
@@ -13,6 +14,7 @@ const PORT = process.env.SERVER_PORT || process.env.PORT;
 // Express settings
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors({ origin: process.env.ORIGIN, credentials: true }));
 
 // Session Store
 app.use(
@@ -40,6 +42,6 @@ app.use(passport.session());
 connectDB();
 
 // Authentication API
-app.use(AuthRoute);
+app.use('/api/auth', AuthRoute);
 
 app.listen(PORT, () => console.log(`Server Started on port ${PORT}`));

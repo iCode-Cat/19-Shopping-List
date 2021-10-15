@@ -14,8 +14,6 @@ module.exports.auth_register_post = async (req, res, next) => {
       next();
     });
     res.status(200).send(`User ${user.username} created successfully`);
-
-    console.log(req.isAuthenticated());
   } catch (error) {
     if (error.name !== 'TypeError') {
       console.log(error);
@@ -29,4 +27,11 @@ module.exports.auth_register_post = async (req, res, next) => {
 // @desc POST User Registiration
 module.exports.auth_login_post = (req, res) => {
   res.send(req.user);
+};
+
+module.exports.auth_user_get = (req, res) => {
+  if (!req.isAuthenticated())
+    return res.status(401).json('User not authenticated');
+  // Send authenticated user
+  res.status(200).json(req.user);
 };
