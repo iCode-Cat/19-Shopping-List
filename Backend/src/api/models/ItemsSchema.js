@@ -21,7 +21,7 @@ const ItemsCategorySchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  items: [{ type: mongoose.SchemaTypes.ObjectId, ref: 'item' }],
+  items: [{ type: mongoose.Schema.Types.ObjectId, ref: 'item' }],
 });
 
 module.exports.Items = mongoose.model('item', ItemsSchema);

@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const User = require('../models/UserSchema');
 
+// @Mongoose function handler for Users
+
 module.exports.registerUser = async (res, body) => {
   try {
     const user = new User({ ...body });

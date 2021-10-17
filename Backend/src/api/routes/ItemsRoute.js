@@ -1,8 +1,14 @@
 const express = require('express');
 const Router = express.Router();
-const { category_post } = require('../controller/ItemsController');
-const { isAdmin } = require('../middlewares/authMiddleware');
+const {
+  category_add_post,
+  category_find_get,
+  item_add_post,
+} = require('../controller/ItemsController');
+const { isAdmin, isAuth } = require('../middlewares/authMiddleware');
 
-Router.post('/category/add', isAdmin, category_post);
+Router.post('/category/add', isAdmin, category_add_post);
+Router.get('/category/find', category_find_get);
+Router.post('/add', isAuth, item_add_post);
 
 module.exports = Router;
