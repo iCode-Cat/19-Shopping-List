@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useFormFields, useSendUser } from '../../Hooks/useFormHandler';
+import { useFormFields } from '../../Hooks/useFormHandler';
+import { useSendUser } from '../../Hooks/useFetch';
 
 const Form = styled.form``;
 const Input = styled.input``;

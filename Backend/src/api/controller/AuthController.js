@@ -32,7 +32,7 @@ module.exports.auth_login_post = (req, res, next) => {
       return next(err);
     }
     if (!user) {
-      return res.status(401).send('User Not found');
+      return res.status(401).send('Invalid Credentials');
     }
     req.logIn(user, function (err) {
       if (err) {

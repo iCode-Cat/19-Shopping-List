@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useFormFields, useSendUser } from '../../Hooks/useFormHandler';
+import { useFormFields } from '../../Hooks/useFormHandler';
+import { useSendUser } from '../../Hooks/useFetch';
 
 const Form = styled.form``;
 const Input = styled.input``;
@@ -12,7 +13,7 @@ const Login = () => {
 
   const formHandler = (e) => {
     e.preventDefault();
-    setCredentials({ url: '/api/auth/login', data: fields });
+    setCredentials({ url: '/api/auth/login', data: fields, method: 'post' });
   };
 
   console.log(error);
