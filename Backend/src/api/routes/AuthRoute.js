@@ -1,5 +1,4 @@
 const express = require('express');
-const passport = require('passport');
 const Router = express.Router();
 const {
   auth_register_post,

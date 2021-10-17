@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const AuthRoute = require('./api/routes/AuthRoute');
+const ItemsRoute = require('./api/routes/ItemsRoute');
 require('dotenv').config();
 const app = express();
 const passport = require('passport');
@@ -41,7 +42,8 @@ app.use(passport.session());
 // Connect Database
 connectDB();
 
-// Authentication API
+// Routes
 app.use('/api/auth', AuthRoute);
+app.use('/api/items', ItemsRoute);
 
 app.listen(PORT, () => console.log(`Server Started on port ${PORT}`));
