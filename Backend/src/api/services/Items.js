@@ -27,7 +27,7 @@ module.exports.addItem = async (res, body) => {
     // Register item id to related category
     const updateCategory = await ItemsCategory.updateOne(
       { category_id: data.category_id },
-      { items: data.id }
+      { $push: { items: data.id } }
     );
     await data.save();
     return data;

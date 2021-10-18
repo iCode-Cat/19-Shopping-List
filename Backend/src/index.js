@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const AuthRoute = require('./api/routes/AuthRoute');
 const ItemsRoute = require('./api/routes/ItemsRoute');
+const ShoppingRoute = require('./api/routes/ShoppingRoute');
 require('dotenv').config();
 const app = express();
 const passport = require('passport');
@@ -45,5 +46,6 @@ connectDB();
 // Routes
 app.use('/api/auth', AuthRoute);
 app.use('/api/items', ItemsRoute);
+app.use('/api/shopping', ShoppingRoute);
 
 app.listen(PORT, () => console.log(`Server Started on port ${PORT}`));
