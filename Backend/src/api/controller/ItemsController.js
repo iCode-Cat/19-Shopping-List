@@ -5,7 +5,7 @@ const { ItemsCategory } = require('../models/ItemsSchema');
 
 // @router /api/items/category/add
 // @desc POST Create new item category
-// @admin
+// @private
 module.exports.category_add_post = async (req, res) => {
   try {
     const post = await addCategory(res, req.body);
@@ -19,6 +19,9 @@ module.exports.category_add_post = async (req, res) => {
   }
 };
 
+// @router /api/items/category/find
+// @desc GET Bring all items
+// @private
 module.exports.category_find_get = async (req, res) => {
   try {
     const find = await ItemsCategory.find().populate('items');

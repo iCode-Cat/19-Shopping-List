@@ -7,7 +7,7 @@ const ItemsSchema = new mongoose.Schema({
   },
   item_image: String,
   category_id: {
-    type: Number,
+    type: String,
     required: true,
   },
   Note: String,
@@ -16,10 +16,6 @@ const ItemsSchema = new mongoose.Schema({
 const ItemsCategorySchema = new mongoose.Schema({
   category_name: {
     type: String,
-    required: true,
-  },
-  category_id: {
-    type: Number,
     required: true,
   },
   items: [{ type: mongoose.Schema.Types.ObjectId, ref: 'item' }],

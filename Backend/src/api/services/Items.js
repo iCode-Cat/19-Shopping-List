@@ -26,7 +26,7 @@ module.exports.addItem = async (res, body) => {
     const data = new Items({ ...body });
     // Register item id to related category
     const updateCategory = await ItemsCategory.updateOne(
-      { category_id: data.category_id },
+      { _id: data.category_id },
       { $push: { items: data.id } }
     );
     await data.save();
@@ -39,6 +39,6 @@ module.exports.addItem = async (res, body) => {
       throw new TypeError('Item name cannot be empty');
     }
     // DB error
-    throw new Error(`Server Error`);
+    throw new Error(error);
   }
 };
