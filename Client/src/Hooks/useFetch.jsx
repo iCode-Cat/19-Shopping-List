@@ -1,14 +1,20 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useHistory } from 'react-router';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchUser } from '../Redux/userSlice';
 
 // Sample using of the hook
 // const [loading, success, error, setCredentials] = useSendUser();
 // setCredentials({ url: '/api/auth/login', data: fields, method: 'post' });
 
 export function useSendUser() {
+  const history = useHistory();
+  const state = useSelector((state) => state.user);
+  const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState();
-  const [error, setError] = useState(false);
+  const [error, setError] = useState('');
   const [credentials, setCredentials] = useState({
     url: '',
     data: '',
@@ -16,6 +22,8 @@ export function useSendUser() {
   });
 
   const postData = async () => {
+    setLoading(true);
+    setError('');
     try {
       const post = await axios({
         method: credentials.method,
@@ -23,9 +31,9 @@ export function useSendUser() {
         data: credentials.data,
         withCredentials: true,
       });
-      console.log(post.data);
       setSuccess(true);
       setLoading(false);
+      dispatch(fetchUser());
     } catch (error) {
       setSuccess(false);
       setLoading(false);
@@ -33,15 +41,26 @@ export function useSendUser() {
     }
   };
 
+  // Everytime authenticaten status changes
   useEffect(() => {
-    if (credentials.data) {
-      postData();
+    if (state.isAuthenticated) {
+      history.push('/');
     }
-    return () => {
-      setLoading(true);
-      setError(false);
-      setSuccess();
+  }, [state.isAuthenticated]);
+
+  useEffect(() => {
+    const returnHook = () => {
+      if (credentials.data) {
+        postData();
+      }
+      return () => {
+        setError(false);
+        setSuccess();
+      };
     };
+    returnHook();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [credentials]);
   // custom hook returns value
   return [

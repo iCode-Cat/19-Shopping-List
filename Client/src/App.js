@@ -1,11 +1,12 @@
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Test from './Pages/Test';
-import Login from './Pages/Auth/Login';
-import Register from './Pages/Auth/Register';
+import Login from './Pages/Login';
+import Register from './Pages/Register';
 import ProtectedRoute from './Components/ProtectedRoute';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUser } from './Redux/userSlice';
 import { useEffect } from 'react';
+import './Global.css';
 
 function App() {
   const dispatch = useDispatch();

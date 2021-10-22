@@ -1,0 +1,28 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Quicksand', sans-serif;
+}
+
+/* Root Variables */
+:root {
+  --clr-orange: #f9a109;
+  --clr-orangeLight: #fff0de;
+  --clr-blue: #56ccf2;
+  --clr-red: #eb5757;
+  --clr-black: #000;
+  --clr-white: #fff;
+  --clr-gray: #454545;
+  --clr-grayDark: #34333a;
+  --clr-grayLight: #828282;
+  --clr-grayVeryLight: #c1c1c4;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-size: 1.6rem;
+}

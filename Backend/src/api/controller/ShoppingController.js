@@ -21,7 +21,7 @@ module.exports.user_list_post = async (req, res) => {
 };
 
 // @router /api/shopping/item/find
-// @desc GET Bring shopping list of the user
+// @desc GET Bring current shopping list of the user
 // @private
 module.exports.user_list_get = async (req, res) => {
   const body = req.body;
