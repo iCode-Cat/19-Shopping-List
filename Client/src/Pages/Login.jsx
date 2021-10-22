@@ -22,8 +22,20 @@ const Wrapper = styled.section`
   }
 `;
 
+const Title = styled.p`
+  justify-self: center;
+  color: var(--clr-grayDark);
+  font-size: 2rem;
+  margin-bottom: 4rem;
+`;
+
+const Logo = styled.img`
+  justify-self: center;
+`;
+
 const Error = styled.p`
   font-size: 1.6rem;
+  opacity: 70%;
   height: 20px;
   color: var(--clr-red);
 `;
@@ -54,6 +66,8 @@ const Login = () => {
   return (
     <Wrapper load={loading}>
       <Form onSubmit={(e) => formHandler(e)}>
+        <Logo height='125px' src={'/source.svg'} />
+        <Title>Shopping List Application</Title>
         <Error>{error}</Error>
         <Input
           placeholder='Username'

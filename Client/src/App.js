@@ -1,12 +1,12 @@
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import Test from './Pages/Test';
-import Login from './Pages/Login';
-import Register from './Pages/Register';
+import { useEffect, lazy, Suspense } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import ProtectedRoute from './Components/ProtectedRoute';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUser } from './Redux/userSlice';
-import { useEffect } from 'react';
 import './Global.css';
+const Test = lazy(() => import('./Pages/Test'));
+const Register = lazy(() => import('./Pages/Register'));
+const Login = lazy(() => import('./Pages/Login'));
 
 function App() {
   const dispatch = useDispatch();
@@ -16,16 +16,20 @@ function App() {
     dispatch(fetchUser());
   }, [dispatch]);
   return (
-    <Router>
-      <ProtectedRoute
-        isAuthenticated={isAuthenticated}
-        exact
-        path='/'
-        component={Test}
-      />
-      <Route path='/login' component={Login} />
-      <Route path='/register' component={Register} />
-    </Router>
+    <Suspense fallback={<div>Loading...</div>}>
+      <Router>
+        <Switch>
+          <ProtectedRoute
+            isAuthenticated={isAuthenticated}
+            exact
+            path='/'
+            component={Test}
+          />
+          <Route path='/login' component={Login} />
+          <Route path='/register' component={Register} />
+        </Switch>
+      </Router>
+    </Suspense>
   );
 }
 
