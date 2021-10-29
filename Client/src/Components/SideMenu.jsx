@@ -19,19 +19,9 @@ const Wrapper = styled.div`
     text-decoration: none;
     width: 100%;
   }
-  .my-node-enter {
-    opacity: 0;
-  }
-  .my-node-enter-active {
-    opacity: 1;
-    transition: opacity 200ms;
-  }
-  .my-node-exit {
-    opacity: 1;
-  }
-  .my-node-exit-active {
-    opacity: 0;
-    transition: opacity 200ms;
+  @media (min-width: 50em) {
+    max-width: 93px;
+    padding: 3rem 0rem;
   }
 `;
 const Logo = styled.img``;
