@@ -7,6 +7,7 @@ import './Global.css';
 const Test = lazy(() => import('./Pages/Test'));
 const Register = lazy(() => import('./Pages/Register'));
 const Login = lazy(() => import('./Pages/Login'));
+const SideMenu = lazy(() => import('../src/Components/SideMenu'));
 
 function App() {
   const dispatch = useDispatch();
@@ -18,6 +19,7 @@ function App() {
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <Router>
+        {isAuthenticated && <SideMenu />}
         <Switch>
           <ProtectedRoute
             isAuthenticated={isAuthenticated}
@@ -25,8 +27,8 @@ function App() {
             path='/'
             component={Test}
           />
-          <Route path='/login' component={Login} />
-          <Route path='/register' component={Register} />
+          <Route exact path='/login' component={Login} />
+          <Route exact path='/register' component={Register} />
         </Switch>
       </Router>
     </Suspense>
