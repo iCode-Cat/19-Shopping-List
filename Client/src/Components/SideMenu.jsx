@@ -8,7 +8,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  max-width: 61px;
+  width: 61px;
   height: 100vh;
   padding: 1.8rem 0rem;
   a {
@@ -20,7 +20,7 @@ const Wrapper = styled.div`
     width: 100%;
   }
   @media (min-width: 50em) {
-    max-width: 93px;
+    width: 93px;
     padding: 3rem 0rem;
   }
 `;
@@ -37,6 +37,9 @@ const Title = styled.p`
   min-width: 64px;
   font-size: 1.2rem;
   padding: 0.5rem 2rem;
+  @media (min-width: 50em) {
+    margin-left: 7rem;
+  }
 `;
 const RouteContainer = styled.div`
   display: grid;

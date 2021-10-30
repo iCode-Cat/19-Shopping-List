@@ -5,7 +5,6 @@ import axios from 'axios';
 const initialState = {
   isAuthenticated: null,
   user: '',
-  shoppingList: '',
 };
 
 export const fetchUser = createAsyncThunk('auth/api/user', async () => {

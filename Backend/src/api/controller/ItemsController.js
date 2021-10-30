@@ -25,6 +25,7 @@ module.exports.category_add_post = async (req, res) => {
 module.exports.category_find_get = async (req, res) => {
   try {
     const find = await ItemsCategory.find().populate('items');
+    res.status(200).send(find);
   } catch (error) {
     if (error.name !== 'TypeError') {
       console.log(error);
