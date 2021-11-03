@@ -17,8 +17,8 @@ const SideMenu = lazy(() => import('../src/Components/SideMenu'));
 
 function App() {
   const dispatch = useDispatch();
-  const userState = useSelector((state) => state.user);
-  const isAuthenticated = userState.isAuthenticated;
+  const State = useSelector((state) => state);
+  const isAuthenticated = State.user.isAuthenticated;
   useEffect(() => {
     dispatch(fetchUser());
   }, [dispatch]);
@@ -34,7 +34,7 @@ function App() {
           </Route>
           <Container>
             <ProtectedRoute
-              isAuthenticated={isAuthenticated}
+              State={State}
               exact
               path='/items'
               component={Items}
