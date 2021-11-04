@@ -4,22 +4,21 @@ import styled from 'styled-components';
 const theme = {
   bgColors: {
     orange: 'var(--clr-orange)',
+    white: 'var(--clr-white)',
     none: 'none',
   },
   textColors: {
     white: 'var(--clr-white)',
+    black: 'var(--clr-white)',
     grayDark: 'var(--clr-grayDark)',
-  },
-  size: {
-    sm: '1.1rem 2.9rem',
-    md: '2rem 2.5rem',
   },
 };
 
 const ButtonStyle = styled.button`
   background: ${(props) => theme.bgColors[props.bgColor]};
   color: ${(props) => theme.textColors[props.textColor]};
-  padding: ${(props) => theme.size[props.size]};
+  padding: ${(props) => props.size};
+  font-weight: 700;
   border-radius: 12px;
   outline: none;
   border: none;

@@ -14,6 +14,7 @@ const Register = lazy(() => import('./Pages/Register'));
 const Login = lazy(() => import('./Pages/Login'));
 const Items = lazy(() => import('./Pages/Items'));
 const SideMenu = lazy(() => import('../src/Components/SideMenu'));
+const Cart = lazy(() => import('./Components/Cart'));
 
 function App() {
   const dispatch = useDispatch();
@@ -41,6 +42,7 @@ function App() {
             />
           </Container>
         </Switch>
+        {isAuthenticated && <Cart State={State} />}
         <Route path='*'>
           <Redirect to='/items' />
         </Route>

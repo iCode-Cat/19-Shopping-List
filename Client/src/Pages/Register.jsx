@@ -81,7 +81,7 @@ const Register = () => {
           placeholder='Password'
           onChange={(e) => handleFieldChange('password', e)}
         />
-        <Button bgColor='orange' textColor='white' size='sm'>
+        <Button bgColor='orange' textColor='white' size='1.1rem 2.9rem'>
           REGISTER
         </Button>
         {/* <SubmitButton type='submit'>LOGIN</SubmitButton> */}

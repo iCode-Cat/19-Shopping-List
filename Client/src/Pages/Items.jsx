@@ -43,19 +43,22 @@ const ItemsContainer = styled.div`
   grid-template-columns: 1fr;
   justify-content: flex-start;
   align-items: flex-start;
-  gap: 0.85rem;
+  gap: 1rem 0.85rem;
   @media (min-width: 50em) {
     grid-template-columns: repeat(4, 1fr);
+    gap: 2.4rem 2rem;
   }
 `;
 
 const Items = ({ State }) => {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(fetchItems());
-  }, [dispatch]);
   const items = State.items.items;
   const searchWord = State.items.search;
+  const dispatch = useDispatch();
+  useEffect(() => {
+    // Only call once everytime reflesh the page
+    if (items) return;
+    dispatch(fetchItems());
+  }, [dispatch]);
 
   return (
     <Wrapper>
