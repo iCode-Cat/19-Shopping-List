@@ -9,13 +9,15 @@ const Wrapper = styled.div`
 
 const Index = ({ State }) => {
   const cartState = State.cart;
-  const { flow } = cartState;
+  const itemState = State.items;
+  const { flow, list } = cartState;
+  const { items } = itemState;
 
   switch (flow) {
     case 'list':
       return (
         <Wrapper>
-          <List />
+          <List items={items} list={list} />
         </Wrapper>
       );
     default:

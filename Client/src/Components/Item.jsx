@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { addItem } from '../Redux/cartSlice';
 
 const Wrapper = styled.div`
   display: grid;
@@ -29,7 +30,22 @@ const Item = (props) => {
   return (
     <Wrapper>
       <Text>{props.text}</Text>
-      <Icon className='material-icons'>add</Icon>
+      <Icon
+        onClick={() =>
+          props.dispatch(
+            addItem({
+              itemId: props.id,
+              categoryId: props.categoryId,
+              categoryName: props.categoryName,
+              itemName: props.name,
+              quantity: 1,
+            })
+          )
+        }
+        className='material-icons'
+      >
+        add
+      </Icon>
     </Wrapper>
   );
 };

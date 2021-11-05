@@ -83,7 +83,7 @@ const CartAmount = styled.p`
   border-radius: 0.4rem;
   color: #fff;
 `;
-const SideMenu = () => {
+const SideMenu = ({ Quantity }) => {
   const [order, setOrder] = useState(true);
   const [titleOrder, setTitleOrder] = useState(null);
   const { sideMenu } = data;
@@ -111,8 +111,7 @@ const SideMenu = () => {
         ))}
       </RouteContainer>
       <CartContainer>
-        {/* Dynamic Amount Will be inserted */}
-        <CartAmount>0</CartAmount>
+        <CartAmount>{Quantity}</CartAmount>
         <CartIcon className='material-icons'>shopping_cart</CartIcon>
       </CartContainer>
     </Wrapper>

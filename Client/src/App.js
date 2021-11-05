@@ -26,7 +26,7 @@ function App() {
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <Router>
-        {isAuthenticated && <SideMenu />}
+        {isAuthenticated && <SideMenu Quantity={State.cart.list.length} />}
         <Switch>
           <Route exact path='/login' component={Login} />
           <Route exact path='/register' component={Register} />

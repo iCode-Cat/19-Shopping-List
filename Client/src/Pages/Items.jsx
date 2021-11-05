@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import Item from '../Components/Item';
 import { useEffect } from 'react';
 import { fetchItems } from '../Redux/ItemsSlice';
+
 import { useDispatch } from 'react-redux';
 import SearchBar from '../Components/SearchBar';
 
@@ -13,9 +14,11 @@ const Wrapper = styled.section`
 const Header = styled.header`
   display: none;
   margin-bottom: 1.7rem;
-  @media (min-width: 50em) {
+
+  @media (min-width: 70em) {
     display: flex;
     justify-content: space-between;
+
     gap: 5rem;
   }
 `;
@@ -44,8 +47,8 @@ const ItemsContainer = styled.div`
   justify-content: flex-start;
   align-items: flex-start;
   gap: 1rem 0.85rem;
-  @media (min-width: 50em) {
-    grid-template-columns: repeat(4, 1fr);
+  @media (min-width: 70em) {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 200px));
     gap: 2.4rem 2rem;
   }
 `;
@@ -85,7 +88,15 @@ const Items = ({ State }) => {
                         .includes(searchWord.toUpperCase())
                     )
                     .map((ctx, index) => (
-                      <Item key={index} text={ctx.item_name} />
+                      <Item
+                        id={ctx._id}
+                        name={ctx.item_name}
+                        categoryId={item._id}
+                        categoryName={item.category_name}
+                        dispatch={dispatch}
+                        key={index}
+                        text={ctx.item_name}
+                      />
                     ))}
                 </ItemsContainer>
               </CategoryContainer>

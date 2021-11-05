@@ -7,7 +7,7 @@ const Span = styled.span`
 
 const Icon = ({ icon, color }) => {
   return (
-    <Span color={(color = '#000')} className='material-icons'>
+    <Span color={color || '#000'} className='material-icons'>
       {icon}
     </Span>
   );

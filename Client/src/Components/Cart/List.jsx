@@ -1,5 +1,7 @@
 import styled from 'styled-components';
+import { useEffect } from 'react';
 import Button from '../Button';
+import ListItem from './ListItem';
 
 const Wrapper = styled.div`
   padding: 2.4rem 1.4rem 2.4rem 1.6rem;
@@ -9,6 +11,12 @@ const Wrapper = styled.div`
     padding: 4.3rem 3.1rem 4.3rem 4.8rem;
   }
 `;
+
+const ListWrapper = styled.div`
+  display: grid;
+  gap: 2rem;
+`;
+
 const Header = styled.header`
   display: grid;
   position: relative;
@@ -35,7 +43,7 @@ const HeaderTitle = styled.p`
   color: #fff;
 `;
 
-const List = () => {
+const List = ({ items, list }) => {
   return (
     <Wrapper>
       <Header>
@@ -43,6 +51,13 @@ const List = () => {
         <HeaderTitle>Didn’t find what you need?</HeaderTitle>
         <Button size='1.1rem 2.9rem'>Add item</Button>
       </Header>
+      <ListWrapper>
+        {list.map((item) => (
+          <ListItem {...item} key={item.itemId}>
+            {item.itemName}
+          </ListItem>
+        ))}
+      </ListWrapper>
     </Wrapper>
   );
 };
