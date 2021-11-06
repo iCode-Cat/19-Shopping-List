@@ -3,6 +3,7 @@ const {
   getList,
   getAllList,
   getListOne,
+  updateSelectedItem,
 } = require('../services/Shopping');
 /* ITEMS */
 
@@ -64,6 +65,20 @@ module.exports.user_AllList_get = async (req, res) => {
     if (!list)
       return res.status(404).send("You don't have a shopping list.Create one!");
     res.status(200).send(list);
+  } catch (error) {
+    res.status(500).send('Server error');
+    console.log(error);
+  }
+};
+
+// @router /api/shopping/item/update
+// @desc GET Update spesific selected ID's check status.
+// @private
+module.exports.user_item_check = async (req, res) => {
+  const body = req.body;
+  try {
+    await updateSelectedItem(body);
+    res.status(200).send('Item updated.');
   } catch (error) {
     res.status(500).send('Server error');
     console.log(error);

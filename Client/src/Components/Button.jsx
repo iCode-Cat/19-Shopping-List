@@ -5,6 +5,7 @@ const theme = {
   bgColors: {
     orange: 'var(--clr-orange)',
     white: 'var(--clr-white)',
+    blue: 'var(--clr-blue)',
     none: 'none',
   },
   textColors: {
@@ -19,7 +20,9 @@ const ButtonStyle = styled.button`
   color: ${(props) => theme.textColors[props.textColor]};
   padding: ${(props) => props.size};
   font-weight: 700;
-  border-radius: 12px;
+  border-radius: ${(props) => (props.radius === 'none' ? '0' : '12px')};
+  border-top-left-radius: 12px;
+  border-bottom-left-radius: 12px;
   outline: none;
   border: none;
   cursor: pointer;
@@ -31,6 +34,7 @@ const Button = (props) => {
       size={props.size}
       textColor={props.textColor}
       bgColor={props.bgColor}
+      radius={props.radius}
     >
       {props.children}
     </ButtonStyle>

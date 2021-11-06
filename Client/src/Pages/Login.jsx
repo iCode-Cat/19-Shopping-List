@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useFormFields } from '../Hooks/useFormHandler';
-import { useSendUser } from '../Hooks/useFetch';
+import { useFetch } from '../Hooks/useFetch';
 import { Link } from 'react-router-dom';
 import Button from '../Components/Button';
 
@@ -56,7 +56,7 @@ const Input = styled.input`
 
 const Login = () => {
   const [fields, handleFieldChange] = useFormFields(false);
-  const [loading, success, error, setCredentials] = useSendUser();
+  const [loading, success, error, setCredentials] = useFetch();
 
   const formHandler = (e) => {
     e.preventDefault();

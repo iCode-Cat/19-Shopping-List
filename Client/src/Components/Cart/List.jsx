@@ -1,9 +1,11 @@
 import styled from 'styled-components';
-import { useEffect } from 'react';
 import Button from '../Button';
 import ListItem from './ListItem';
+import Icon from '../Icon';
+import ListSave from './ListSave';
 
 const Wrapper = styled.div`
+  position: relative;
   padding: 2.4rem 1.4rem 2.4rem 1.6rem;
   background: var(--clr-orangeLight);
   height: 100%;
@@ -30,6 +32,22 @@ const Header = styled.header`
     gap: 1.4rem;
   }
 `;
+
+const TitleContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 3.2rem;
+  margin-bottom: 1rem;
+  * {
+    color: #34333a;
+  }
+`;
+const Title = styled.p`
+  font-size: 2.4rem;
+  font-weight: 700;
+`;
+
 const HeaderLogo = styled.img`
   position: absolute;
   align-self: center;
@@ -43,7 +61,14 @@ const HeaderTitle = styled.p`
   color: #fff;
 `;
 
-const List = ({ items, list }) => {
+const List = ({ items, list, isActive, activeList }) => {
+  let loopItems = [];
+  if (isActive) {
+    loopItems = activeList.items;
+  } else {
+    loopItems = list;
+  }
+
   return (
     <Wrapper>
       <Header>
@@ -52,12 +77,19 @@ const List = ({ items, list }) => {
         <Button size='1.1rem 2.9rem'>Add item</Button>
       </Header>
       <ListWrapper>
-        {list.map((item) => (
-          <ListItem {...item} key={item.itemId}>
+        <TitleContainer>
+          <Title>Shopping List</Title>
+          <span>
+            <Icon icon='edit' />
+          </span>
+        </TitleContainer>
+        {loopItems.map((item) => (
+          <ListItem {...item} isActive={isActive} key={item.itemId}>
             {item.itemName}
           </ListItem>
         ))}
       </ListWrapper>
+      <ListSave />
     </Wrapper>
   );
 };

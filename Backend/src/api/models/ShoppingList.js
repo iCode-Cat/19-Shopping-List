@@ -10,7 +10,7 @@ const shoppingListSchema = new mongoose.Schema({
     type: String,
     default: 'Shopping List',
   },
-  items: [{ type: mongoose.Schema.Types.ObjectId, ref: 'selectedItem' }],
+  items: [{ type: mongoose.Schema.Types.ObjectId, ref: 'selecteditem' }],
   isCompleted: {
     type: Boolean,
     default: false,

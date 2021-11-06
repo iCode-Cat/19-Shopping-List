@@ -3,9 +3,15 @@ const moment = require('moment');
 
 const SelectedItemSchema = new mongoose.Schema({
   user: {
-    type: { type: mongoose.Schema.Types.ObjectId, ref: 'user' },
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'user',
   },
   item: { type: mongoose.Schema.Types.ObjectId, ref: 'item' },
+  itemName: {
+    type: String,
+    default: 'untitled',
+  },
+  shoppingListId: { type: String },
   quantity: {
     type: Number,
     default: 1,
@@ -17,6 +23,6 @@ const SelectedItemSchema = new mongoose.Schema({
 });
 
 module.exports = SelectedItem = mongoose.model(
-  'selectedItem',
+  'selecteditem',
   SelectedItemSchema
 );

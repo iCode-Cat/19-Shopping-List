@@ -2,13 +2,19 @@ import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { removeItem, quantityHandler } from '../../Redux/cartSlice';
 import { useState } from 'react';
-import { CSSTransition } from 'react-transition-group';
 import Icon from '../Icon';
+import { useEffect } from 'react';
+import { useFetch } from '../../Hooks/useFetch';
 
 const Wrapper = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 0fr;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
+  gap: 1.8rem;
+  .item-icon {
+    margin-top: 0.7rem;
+    cursor: pointer;
+  }
 `;
 
 const QuantityWrapper = styled.div`
@@ -29,12 +35,16 @@ const QuantityWrapper = styled.div`
 
 const Title = styled.p`
   font-size: 1.8rem;
-  font-weight: 600;
+  font-weight: 500;
   color: #000;
+  flex: 1 0;
+  text-decoration: ${({ marked }) =>
+    marked === 'done' ? 'line-through' : 'unset'};
 `;
 
 const Quantity = styled.div`
   display: grid;
+
   place-items: center;
   color: #f9a109;
   width: 68px;
@@ -57,15 +67,58 @@ const IconWrapper = styled.span`
   }
 `;
 
-const ListItem = ({ itemName, itemId, quantity }) => {
+const ListItem = ({
+  itemName,
+  itemId,
+  _id,
+  quantity,
+  isActive,
+  isCompleted,
+}) => {
   const dispatch = useDispatch();
   const [toggle, setToggle] = useState(false);
+  const [check, setCheck] = useState(isCompleted);
+  const [isloaded, setLoaded] = useState(false);
+  const [marked, setMarked] = useState(false);
+  const [loading, success, error, setCredentials] = useFetch();
+
+  // @TODO Create update item status API
+
+  const updateItemStatus = () => {
+    setCredentials({
+      url: '/api/shopping/item/update',
+      data: {
+        id: _id,
+        status: !check,
+      },
+      method: 'post',
+    });
+  };
+
+  const updateItemHandler = async () => {
+    updateItemStatus();
+    setCheck(!check);
+  };
 
   return (
     <Wrapper>
-      <Title>{itemName}</Title>
+      {isActive && (
+        <span
+          onClick={() => {
+            if (loading) return;
+            updateItemHandler();
+          }}
+          className='item-icon'
+        >
+          <Icon
+            color='#F9A109'
+            icon={check ? 'check_box' : 'check_box_outline_blank'}
+          />
+        </span>
+      )}
+      <Title marked={check ? 'done' : 'active'}>{itemName}</Title>
 
-      {toggle ? (
+      {toggle && !isActive ? (
         <QuantityWrapper key={1} onMouseLeave={() => setToggle(false)}>
           <IconWrapper onClick={() => dispatch(removeItem(itemId))}>
             <Icon color='#fff' icon='delete' />

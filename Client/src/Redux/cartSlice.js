@@ -5,12 +5,15 @@ import axios from 'axios';
 const initialState = {
   flow: 'list',
   list: [],
+  isActive: false,
+  loading: true,
+  activeList: [],
 };
 
 export const fetchCart = createAsyncThunk(
-  '/api/items/category/find',
+  '/api/shopping/item/find',
   async () => {
-    const res = await axios.get('/api/items/category/find', {
+    const res = await axios.get('/api/shopping/item/find', {
       withCredentials: true,
     });
     return res.data;
@@ -69,9 +72,13 @@ export const cartSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchCart.fulfilled, (state, action) => {});
+    builder.addCase(fetchCart.fulfilled, (state, action) => {
+      state.isActive = true;
+      state.activeList = action.payload;
+      state.loading = false;
+    });
     builder.addCase(fetchCart.rejected, (state, action) => {
-      //   state.isAuthenticated = false;
+      state.loading = false;
     });
   },
 });

@@ -5,7 +5,6 @@ const SelectedItems = require('../models/SelectedItem');
 
 // create a shopping list
 module.exports.createList = async (res, body, req) => {
-  console.log(body);
   const { items, title } = body;
   const userId = req.user.id;
   try {
@@ -21,14 +20,29 @@ module.exports.createList = async (res, body, req) => {
         user: userId,
         title,
       });
+      req.userShoppingId = createList._id;
+    } else {
+      req.userShoppingId = findList._id;
     }
 
     const itemMap = items.map(async (item) => {
       // Register items
       const registerItems = await SelectedItems.create({
         user: userId,
-        item: item.id,
+        item: item.itemId,
+        quantity: item.quantity,
+        itemName: item.itemName,
+        shoppingListId: req.userShoppingId,
       });
+    });
+
+    await Promise.all(itemMap);
+    const justRegistered = await SelectedItems.find({
+      shoppingListId: req.userShoppingId,
+      user: userId,
+    });
+
+    justRegistered.map(async (item) => {
       // Update existing shopping list
       const updateList = await ShoppingList.updateOne(
         {
@@ -36,10 +50,10 @@ module.exports.createList = async (res, body, req) => {
           isCompleted: false,
           isCanceled: false,
         },
-        { $push: { items: item.id } }
+        { $push: { items: item._id } }
       );
     });
-    await Promise.all(itemMap);
+    await Promise.all(justRegistered);
   } catch (error) {
     // if (error.errors.category_name) {
     //   throw new TypeError('Category name cannot be empty');
@@ -59,7 +73,7 @@ module.exports.getList = async (res, body, req) => {
       user: userId,
       isCompleted: false,
       isCanceled: false,
-    });
+    }).populate('items');
     if (findList) return findList;
     return false;
   } catch (error) {
@@ -91,6 +105,18 @@ module.exports.getAllList = async (res, body, req) => {
     });
     if (findList) return findList;
     return false;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+module.exports.updateSelectedItem = async (body) => {
+  const { id, status } = body;
+  try {
+    await SelectedItems.updateOne({
+      _id: id,
+      isCompleted: status,
+    });
   } catch (error) {
     throw new Error(error);
   }

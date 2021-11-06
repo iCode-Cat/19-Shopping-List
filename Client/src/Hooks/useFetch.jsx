@@ -8,13 +8,13 @@ import { fetchUser } from '../Redux/userSlice';
 // const [loading, success, error, setCredentials] = useSendUser();
 // setCredentials({ url: '/api/auth/login', data: fields, method: 'post' });
 
-export function useSendUser() {
+export function useFetch() {
   const history = useHistory();
   const state = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState();
-  const [error, setError] = useState('');
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState(false);
   const [credentials, setCredentials] = useState({
     url: '',
     data: '',
