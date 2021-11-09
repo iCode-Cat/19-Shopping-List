@@ -44,11 +44,12 @@ const ListSave = () => {
   const state = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const [title, setTitle] = useState(false);
-  const [loading, success, error, setCredentials] = useFetch();
+  const currentListID = state.activeList?._id;
+  const [loading, success, error, setFetch] = useFetch();
 
   const createListHandler = () => {
     if (state.list.length < 1 || !title) return alert('Empty');
-    setCredentials({
+    setFetch({
       url: '/api/shopping/item/add',
       data: {
         title,
@@ -58,20 +59,43 @@ const ListSave = () => {
     });
   };
 
+  // Update status of current active list
+  const statusHandler = async ({ isCompleted = false, isCanceled = false }) => {
+    setFetch({
+      url: '/api/shopping/status',
+      data: {
+        id: currentListID,
+        isCompleted,
+        isCanceled,
+      },
+      method: 'post',
+    });
+  };
   useEffect(() => {
-    dispatch(fetchCart());
+    if (success) {
+      console.log(success);
+      dispatch(fetchCart());
+    }
   }, [success]);
 
   return (
     <Wrapper>
       {state.isActive ? (
         <ButtonContainer>
-          <span>
+          <span
+            onClick={() =>
+              statusHandler({ isCompleted: false, isCanceled: true })
+            }
+          >
             <Button bgColor='none' size='2rem 2.3rem'>
               cancel
             </Button>
           </span>
-          <span>
+          <span
+            onClick={() =>
+              statusHandler({ isCompleted: true, isCanceled: false })
+            }
+          >
             <Button bgColor='blue' textColor='white' size='2rem 2.3rem'>
               Complete
             </Button>

@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 import Item from '../Components/Item';
 import { useEffect } from 'react';
-import { fetchItems } from '../Redux/ItemsSlice';
-
 import { useDispatch } from 'react-redux';
 import SearchBar from '../Components/SearchBar';
 
@@ -57,11 +55,6 @@ const Items = ({ State }) => {
   const items = State.items.items;
   const searchWord = State.items.search;
   const dispatch = useDispatch();
-  useEffect(() => {
-    // Only call once everytime reflesh the page
-    if (items) return;
-    dispatch(fetchItems());
-  }, [dispatch]);
 
   return (
     <Wrapper>

@@ -79,6 +79,9 @@ export const cartSlice = createSlice({
     });
     builder.addCase(fetchCart.rejected, (state, action) => {
       state.loading = false;
+      state.isActive = false;
+      state.activeList = [];
+      state.list = [];
     });
   },
 });

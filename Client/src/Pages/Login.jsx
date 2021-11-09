@@ -56,11 +56,11 @@ const Input = styled.input`
 
 const Login = () => {
   const [fields, handleFieldChange] = useFormFields(false);
-  const [loading, success, error, setCredentials] = useFetch();
+  const [loading, success, error, setFetch] = useFetch();
 
   const formHandler = (e) => {
     e.preventDefault();
-    setCredentials({ url: '/api/auth/login', data: fields, method: 'post' });
+    setFetch({ url: '/api/auth/login', data: fields, method: 'post' });
   };
 
   return (

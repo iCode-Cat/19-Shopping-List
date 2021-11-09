@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchUser } from './Redux/userSlice';
 import './Global.css';
 import Container from './Components/Container';
+import { fetchItems } from './Redux/ItemsSlice';
 const Register = lazy(() => import('./Pages/Register'));
 const Login = lazy(() => import('./Pages/Login'));
 const Items = lazy(() => import('./Pages/Items'));
@@ -21,8 +22,15 @@ function App() {
   const State = useSelector((state) => state);
   const isAuthenticated = State.user.isAuthenticated;
   useEffect(() => {
+    if (isAuthenticated) return;
     dispatch(fetchUser());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (!isAuthenticated) return;
+    dispatch(fetchItems());
+  }, [isAuthenticated]);
+
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <Router>

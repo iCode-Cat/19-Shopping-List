@@ -69,6 +69,8 @@ const List = ({ items, list, isActive, activeList }) => {
     loopItems = list;
   }
 
+  console.log(activeList.title);
+
   return (
     <Wrapper>
       <Header>
@@ -78,7 +80,7 @@ const List = ({ items, list, isActive, activeList }) => {
       </Header>
       <ListWrapper>
         <TitleContainer>
-          <Title>Shopping List</Title>
+          <Title>{activeList.title || 'Shopping List'}</Title>
           <span>
             <Icon icon='edit' />
           </span>

@@ -15,7 +15,7 @@ export function useFetch() {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
-  const [credentials, setCredentials] = useState({
+  const [fetch, setFetch] = useState({
     url: '',
     data: '',
     method: '',
@@ -23,12 +23,13 @@ export function useFetch() {
 
   const postData = async () => {
     setLoading(true);
+    setSuccess(false);
     setError('');
     try {
       const post = await axios({
-        method: credentials.method,
-        url: credentials.url,
-        data: credentials.data,
+        method: fetch.method,
+        url: fetch.url,
+        data: fetch.data,
         withCredentials: true,
       });
       setSuccess(true);
@@ -50,25 +51,24 @@ export function useFetch() {
 
   useEffect(() => {
     const returnHook = () => {
-      if (credentials.data) {
+      if (fetch.data) {
         postData();
       }
       return () => {
         setError(false);
-        setSuccess();
       };
     };
     returnHook();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [credentials]);
+  }, [fetch]);
   // custom hook returns value
   return [
     loading,
     success,
     error,
     (data) => {
-      setCredentials(data);
+      setFetch(data);
     },
   ];
 }

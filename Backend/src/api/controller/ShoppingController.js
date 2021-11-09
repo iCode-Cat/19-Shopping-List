@@ -5,6 +5,9 @@ const {
   getListOne,
   updateSelectedItem,
 } = require('../services/Shopping');
+
+const Shopping = require('../models/ShoppingList');
+
 /* ITEMS */
 
 // @router /api/shopping/item/add
@@ -21,6 +24,24 @@ module.exports.user_list_post = async (req, res) => {
   }
 };
 
+// @router /api/shopping/status
+// @desc POST Allow user to change the status of current list
+// @private
+module.exports.user_list_status = async (req, res) => {
+  const body = req.body;
+  const { id, isCompleted, isCanceled } = body;
+  try {
+    const list = await Shopping.findByIdAndUpdate(
+      { _id: id },
+      { isCompleted, isCanceled }
+    );
+    res.status(200).send(`${id} status changed.`);
+  } catch (error) {
+    res.status(500).send('Server error');
+    console.log(error);
+  }
+};
+
 // @router /api/shopping/item/find
 // @desc GET Bring current shopping list of the user
 // @private
@@ -28,6 +49,7 @@ module.exports.user_list_get = async (req, res) => {
   const body = req.body;
   try {
     const list = await getList(res, body, req);
+    console.log('GET');
     if (!list)
       return res.status(404).send("You don't have a shopping list.Create one!");
     res.status(200).send(list);
