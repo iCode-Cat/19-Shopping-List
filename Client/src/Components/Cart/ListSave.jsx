@@ -40,7 +40,7 @@ const ButtonContainer = styled.div`
   gap: 2rem;
 `;
 
-const ListSave = () => {
+const ListSave = ({ flow }) => {
   const state = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const [title, setTitle] = useState(false);
@@ -73,10 +73,28 @@ const ListSave = () => {
   };
   useEffect(() => {
     if (success) {
-      console.log(success);
       dispatch(fetchCart());
     }
   }, [success]);
+
+  if (flow === 'add') {
+    return (
+      <Wrapper>
+        <ButtonContainer>
+          <span>
+            <Button bgColor='none' size='2rem 2.3rem'>
+              cancel
+            </Button>
+          </span>
+          <span>
+            <Button bgColor='orange' textColor='white' size='2rem 2.3rem'>
+              Save
+            </Button>
+          </span>
+        </ButtonContainer>
+      </Wrapper>
+    );
+  }
 
   return (
     <Wrapper>

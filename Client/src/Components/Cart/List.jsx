@@ -3,6 +3,7 @@ import Button from '../Button';
 import ListItem from './ListItem';
 import Icon from '../Icon';
 import ListSave from './ListSave';
+import { setFlow } from '../../Redux/cartSlice';
 
 const Wrapper = styled.div`
   position: relative;
@@ -61,7 +62,7 @@ const HeaderTitle = styled.p`
   color: #fff;
 `;
 
-const List = ({ items, list, isActive, activeList }) => {
+const List = ({ items, list, isActive, activeList, dispatch }) => {
   let loopItems = [];
   if (isActive) {
     loopItems = activeList.items;
@@ -69,14 +70,14 @@ const List = ({ items, list, isActive, activeList }) => {
     loopItems = list;
   }
 
-  console.log(activeList.title);
-
   return (
     <Wrapper>
       <Header>
         <HeaderLogo src='/source.svg' height='125px' />
         <HeaderTitle>Didn’t find what you need?</HeaderTitle>
-        <Button size='1.1rem 2.9rem'>Add item</Button>
+        <span onClick={() => dispatch(setFlow('add'))}>
+          <Button size='1.1rem 2.9rem'>Add item</Button>
+        </span>
       </Header>
       <ListWrapper>
         <TitleContainer>
@@ -91,7 +92,7 @@ const List = ({ items, list, isActive, activeList }) => {
           </ListItem>
         ))}
       </ListWrapper>
-      <ListSave />
+      <ListSave flow='default' />
     </Wrapper>
   );
 };

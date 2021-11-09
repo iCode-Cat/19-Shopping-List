@@ -5,7 +5,7 @@ const ItemsSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  item_image: String,
+  image: String,
   category_id: {
     type: String,
     required: true,

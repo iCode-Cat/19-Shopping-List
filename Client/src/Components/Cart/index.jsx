@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { fetchCart } from '../../Redux/cartSlice';
 import List from './List';
+import AddItem from './AddItem';
 
 const Wrapper = styled.div`
   @media (min-width: 50em) {
@@ -26,11 +27,18 @@ const Index = ({ State }) => {
       return (
         <Wrapper>
           <List
+            dispatch={dispatch}
             items={items}
             list={list}
             isActive={isActive}
             activeList={activeList}
           />
+        </Wrapper>
+      );
+    case 'add':
+      return (
+        <Wrapper>
+          <AddItem />
         </Wrapper>
       );
     default:
