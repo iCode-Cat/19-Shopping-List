@@ -22,6 +22,7 @@ module.exports.addCategory = async (res, body) => {
 
 // Item add
 module.exports.addItem = async (res, body) => {
+  console.log(body);
   try {
     const data = new Items({ ...body });
     // Register item id to related category
@@ -32,7 +33,7 @@ module.exports.addItem = async (res, body) => {
     await data.save();
     return data;
   } catch (error) {
-    if (error.errors.category) {
+    if (error.errors.category_id) {
       throw new TypeError('Category id cannot be empty');
     }
     if (error.errors.item_name) {

@@ -113,10 +113,12 @@ module.exports.getAllList = async (res, body, req) => {
 module.exports.updateSelectedItem = async (body) => {
   const { id, status } = body;
   try {
-    await SelectedItems.updateOne({
-      _id: id,
-      isCompleted: status,
-    });
+    await SelectedItems.updateOne(
+      { _id: id },
+      {
+        isCompleted: status,
+      }
+    );
   } catch (error) {
     throw new Error(error);
   }

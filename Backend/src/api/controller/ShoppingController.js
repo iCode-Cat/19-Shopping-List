@@ -49,7 +49,6 @@ module.exports.user_list_get = async (req, res) => {
   const body = req.body;
   try {
     const list = await getList(res, body, req);
-    console.log('GET');
     if (!list)
       return res.status(404).send("You don't have a shopping list.Create one!");
     res.status(200).send(list);

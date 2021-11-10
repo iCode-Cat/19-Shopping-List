@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Button from '../Button';
 import { useFetch } from '../../Hooks/useFetch';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchCart } from '../../Redux/cartSlice';
+import { fetchCart, setFlow } from '../../Redux/cartSlice';
 
 const Wrapper = styled.div`
   position: absolute;
@@ -40,7 +40,7 @@ const ButtonContainer = styled.div`
   gap: 2rem;
 `;
 
-const ListSave = ({ flow }) => {
+const ListSave = ({ flow, addItemHandler }) => {
   const state = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const [title, setTitle] = useState(false);
@@ -81,12 +81,12 @@ const ListSave = ({ flow }) => {
     return (
       <Wrapper>
         <ButtonContainer>
-          <span>
+          <span onClick={() => dispatch(setFlow('list'))}>
             <Button bgColor='none' size='2rem 2.3rem'>
               cancel
             </Button>
           </span>
-          <span>
+          <span onClick={addItemHandler}>
             <Button bgColor='orange' textColor='white' size='2rem 2.3rem'>
               Save
             </Button>

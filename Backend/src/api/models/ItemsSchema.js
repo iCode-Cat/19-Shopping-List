@@ -10,7 +10,7 @@ const ItemsSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  Note: String,
+  note: String,
 });
 
 const ItemsCategorySchema = new mongoose.Schema({

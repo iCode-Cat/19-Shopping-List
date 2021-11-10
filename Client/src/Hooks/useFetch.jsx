@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchUser } from '../Redux/userSlice';
 
 // Sample using of the hook
-// const [loading, success, error, setCredentials] = useSendUser();
+// const [loading, success, error, setCredentials] = useFetch();
 // setCredentials({ url: '/api/auth/login', data: fields, method: 'post' });
 
 export function useFetch() {
@@ -54,9 +54,6 @@ export function useFetch() {
       if (fetch.data) {
         postData();
       }
-      return () => {
-        setError(false);
-      };
     };
     returnHook();
 

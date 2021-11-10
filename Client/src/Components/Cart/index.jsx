@@ -38,7 +38,7 @@ const Index = ({ State }) => {
     case 'add':
       return (
         <Wrapper>
-          <AddItem />
+          <AddItem dispatch={dispatch} />
         </Wrapper>
       );
     default:
