@@ -1,5 +1,5 @@
 const { addCategory, addItem } = require('../services/Items');
-const { ItemsCategory } = require('../models/ItemsSchema');
+const { ItemsCategory, Items } = require('../models/ItemsSchema');
 
 /* CATEGORY */
 
@@ -53,4 +53,21 @@ module.exports.item_add_post = async (req, res) => {
   }
 };
 
+/* ITEMS */
 
+// @router /api/items/find/:id
+// @desc GET find an item by ID
+// @private
+module.exports.item_find = async (req, res) => {
+  const id = req.params.id;
+  try {
+    const item = await Items.findById(id);
+    res.status(200).send(item);
+  } catch (error) {
+    if (error.name !== 'TypeError') {
+      console.log(error);
+      return res.status(500).send('Server Error');
+    }
+    res.status(400).send(error.message);
+  }
+};
