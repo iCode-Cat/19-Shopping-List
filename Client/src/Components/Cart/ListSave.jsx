@@ -4,6 +4,8 @@ import Button from '../Button';
 import { useFetch } from '../../Hooks/useFetch';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchCart, setFlow } from '../../Redux/cartSlice';
+import { addItem } from '../../Redux/cartSlice';
+import { setId } from '../../Redux/ItemsSlice';
 
 const Wrapper = styled.div`
   position: absolute;
@@ -42,6 +44,7 @@ const ButtonContainer = styled.div`
 
 const ListSave = ({ flow, addItemHandler }) => {
   const state = useSelector((state) => state.cart);
+  const itemDetail = useSelector((state) => state.items.details);
   const dispatch = useDispatch();
   const [title, setTitle] = useState(false);
   const currentListID = state.activeList?._id;
@@ -76,6 +79,39 @@ const ListSave = ({ flow, addItemHandler }) => {
       dispatch(fetchCart());
     }
   }, [success]);
+
+  if (flow === 'itemAdd') {
+    return (
+      <Wrapper>
+        <ButtonContainer>
+          <span onClick={() => dispatch(setFlow('list'))}>
+            <Button bgColor='none' size='2rem 2.3rem'>
+              cancel
+            </Button>
+          </span>
+          <span
+            onClick={() => {
+              dispatch(
+                addItem({
+                  itemId: itemDetail._id,
+                  categoryId: itemDetail.category_id,
+                  categoryName: '',
+                  itemName: itemDetail.item_name,
+                  quantity: 1,
+                })
+              );
+              dispatch(setFlow('list'));
+              dispatch(setId(false));
+            }}
+          >
+            <Button bgColor='orange' textColor='white' size='2rem 2.3rem'>
+              Add to list
+            </Button>
+          </span>
+        </ButtonContainer>
+      </Wrapper>
+    );
+  }
 
   if (flow === 'add') {
     return (

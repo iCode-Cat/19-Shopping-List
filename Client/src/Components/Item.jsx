@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { addItem } from '../Redux/cartSlice';
+import { setId } from '../Redux/ItemsSlice';
 
 const Wrapper = styled.div`
   display: grid;
@@ -27,11 +28,13 @@ const Icon = styled.span`
 `;
 
 const Item = (props) => {
+  // console.log(payload);
   return (
-    <Wrapper>
+    <Wrapper onClick={() => props.dispatch(setId(props.id))}>
       <Text>{props.text}</Text>
       <Icon
-        onClick={() =>
+        onClick={(event) => {
+          event.stopPropagation();
           props.dispatch(
             addItem({
               itemId: props.id,
@@ -40,8 +43,8 @@ const Item = (props) => {
               itemName: props.name,
               quantity: 1,
             })
-          )
-        }
+          );
+        }}
         className='material-icons'
       >
         add

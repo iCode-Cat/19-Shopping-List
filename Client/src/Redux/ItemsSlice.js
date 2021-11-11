@@ -5,6 +5,8 @@ import axios from 'axios';
 const initialState = {
   items: false,
   search: '',
+  details: '',
+  detailID: false,
 };
 
 export const fetchItems = createAsyncThunk(
@@ -24,6 +26,13 @@ export const itemsSlice = createSlice({
     searchItem: (state, action) => {
       state.search = action.payload;
     },
+    setItem: (state, action) => {
+      state.details = action.payload;
+    },
+    setId: (state, action) => {
+      if (state.detailID === action.payload) return;
+      state.detailID = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchItems.fulfilled, (state, action) => {
@@ -35,6 +44,6 @@ export const itemsSlice = createSlice({
   },
 });
 
-export const { searchItem } = itemsSlice.actions;
+export const { searchItem, setItem, setId } = itemsSlice.actions;
 
 export default itemsSlice.reducer;

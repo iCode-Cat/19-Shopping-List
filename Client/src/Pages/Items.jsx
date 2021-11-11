@@ -1,8 +1,11 @@
 import styled from 'styled-components';
 import Item from '../Components/Item';
-import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import SearchBar from '../Components/SearchBar';
+import axios from 'axios';
+import { setItem } from '../Redux/ItemsSlice';
+import { setFlow } from '../Redux/cartSlice';
+import { useEffect, useMemo } from 'react';
 
 const Wrapper = styled.section`
   display: grid;
@@ -54,7 +57,25 @@ const ItemsContainer = styled.div`
 const Items = ({ State }) => {
   const items = State.items.items;
   const searchWord = State.items.search;
+  const ItemId = State.items.detailID;
   const dispatch = useDispatch();
+
+  const getOneItem = async () => {
+    try {
+      const get = await axios.get('/api/items/find/' + ItemId);
+      dispatch(setItem(get.data));
+      // Change right component to item details
+      dispatch(setFlow('details'));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useMemo(() => {
+    if (!ItemId) return;
+    getOneItem();
+  }, [ItemId]);
+
+  // useEffect(() => {}, [ItemId]);
 
   return (
     <Wrapper>

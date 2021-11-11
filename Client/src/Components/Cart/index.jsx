@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { fetchCart } from '../../Redux/cartSlice';
 import List from './List';
 import AddItem from './AddItem';
+import ItemDetails from './ItemDetails';
 
 const Wrapper = styled.div`
   @media (min-width: 50em) {
@@ -39,6 +40,12 @@ const Index = ({ State }) => {
       return (
         <Wrapper>
           <AddItem dispatch={dispatch} />
+        </Wrapper>
+      );
+    case 'details':
+      return (
+        <Wrapper>
+          <ItemDetails dispatch={dispatch} State={State} />
         </Wrapper>
       );
     default:
