@@ -21,7 +21,7 @@ const Redirect = styled.p`
 `;
 const ContentContainer = styled.div`
   display: grid;
-  grid-template-columns: auto;
+  grid-template-columns: 1fr;
   justify-content: flex-start;
   justify-items: flex-start;
   gap: 3.6rem;

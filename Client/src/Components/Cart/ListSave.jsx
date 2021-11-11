@@ -45,6 +45,7 @@ const ButtonContainer = styled.div`
 const ListSave = ({ flow, addItemHandler }) => {
   const state = useSelector((state) => state.cart);
   const itemDetail = useSelector((state) => state.items.details);
+  const itemID = useSelector((state) => state.items.detailID);
   const dispatch = useDispatch();
   const [title, setTitle] = useState(false);
   const currentListID = state.activeList?._id;
@@ -80,6 +81,11 @@ const ListSave = ({ flow, addItemHandler }) => {
     }
   }, [success]);
 
+  useEffect(() => {
+    if (itemID) return;
+    dispatch(setFlow('list'));
+  }, [itemID]);
+
   if (flow === 'itemAdd') {
     return (
       <Wrapper>
@@ -100,7 +106,6 @@ const ListSave = ({ flow, addItemHandler }) => {
                   quantity: 1,
                 })
               );
-              dispatch(setFlow('list'));
               dispatch(setId(false));
             }}
           >
@@ -122,7 +127,11 @@ const ListSave = ({ flow, addItemHandler }) => {
               cancel
             </Button>
           </span>
-          <span onClick={addItemHandler}>
+          <span
+            onClick={() => {
+              addItemHandler();
+            }}
+          >
             <Button bgColor='orange' textColor='white' size='2rem 2.3rem'>
               Save
             </Button>
