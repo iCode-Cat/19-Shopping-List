@@ -102,6 +102,7 @@ module.exports.getAllList = async (res, body, req) => {
   try {
     const findList = await ShoppingList.find({
       user: userId,
+      isActive: false,
     });
     if (findList) return findList;
     return false;

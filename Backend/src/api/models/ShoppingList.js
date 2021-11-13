@@ -19,6 +19,10 @@ const shoppingListSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  isActive: {
+    type: Boolean,
+    default: true,
+  },
   date: {
     type: String,
     default: () => moment().format('ddd MM.DD.YYYY'),

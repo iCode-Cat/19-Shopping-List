@@ -11,6 +11,7 @@ import { fetchUser } from './Redux/userSlice';
 import './Global.css';
 import Container from './Components/Container';
 import { fetchItems } from './Redux/ItemsSlice';
+import History from './Pages/History';
 const Register = lazy(() => import('./Pages/Register'));
 const Login = lazy(() => import('./Pages/Login'));
 const Items = lazy(() => import('./Pages/Items'));
@@ -48,12 +49,15 @@ function App() {
               path='/items'
               component={Items}
             />
+            <ProtectedRoute
+              State={State}
+              exact
+              path='/history'
+              component={History}
+            />
           </Container>
         </Switch>
         {isAuthenticated && <Cart State={State} />}
-        <Route path='*'>
-          <Redirect to='/items' />
-        </Route>
       </Router>
     </Suspense>
   );

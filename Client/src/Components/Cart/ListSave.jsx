@@ -64,13 +64,18 @@ const ListSave = ({ flow, addItemHandler }) => {
   };
 
   // Update status of current active list
-  const statusHandler = async ({ isCompleted = false, isCanceled = false }) => {
+  const statusHandler = async ({
+    isCompleted = false,
+    isCanceled = false,
+    isActive,
+  }) => {
     setFetch({
       url: '/api/shopping/status',
       data: {
         id: currentListID,
         isCompleted,
         isCanceled,
+        isActive,
       },
       method: 'post',
     });
@@ -80,11 +85,6 @@ const ListSave = ({ flow, addItemHandler }) => {
       dispatch(fetchCart());
     }
   }, [success]);
-
-  useEffect(() => {
-    if (itemID) return;
-    dispatch(setFlow('list'));
-  }, [itemID]);
 
   if (flow === 'itemAdd') {
     return (
@@ -147,7 +147,11 @@ const ListSave = ({ flow, addItemHandler }) => {
         <ButtonContainer>
           <span
             onClick={() =>
-              statusHandler({ isCompleted: false, isCanceled: true })
+              statusHandler({
+                isCompleted: false,
+                isCanceled: true,
+                isActive: false,
+              })
             }
           >
             <Button bgColor='none' size='2rem 2.3rem'>
@@ -156,7 +160,11 @@ const ListSave = ({ flow, addItemHandler }) => {
           </span>
           <span
             onClick={() =>
-              statusHandler({ isCompleted: true, isCanceled: false })
+              statusHandler({
+                isCompleted: true,
+                isCanceled: false,
+                isActive: false,
+              })
             }
           >
             <Button bgColor='blue' textColor='white' size='2rem 2.3rem'>

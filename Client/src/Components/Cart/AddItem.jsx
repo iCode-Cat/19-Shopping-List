@@ -6,6 +6,7 @@ import { useFetch } from '../../Hooks/useFetch';
 import { fetchItems } from '../../Redux/ItemsSlice';
 import { useEffect, useState } from 'react';
 import Categories from './Categories';
+import { setFlow } from '../../Redux/cartSlice';
 
 const Wrapper = styled.div`
   position: relative;
@@ -43,8 +44,9 @@ const AddItem = ({ dispatch }) => {
   };
 
   useEffect(() => {
-    if (success) {
+    if (success && !loading) {
       dispatch(fetchItems());
+      dispatch(setFlow('list'));
     }
   }, [loading]);
 

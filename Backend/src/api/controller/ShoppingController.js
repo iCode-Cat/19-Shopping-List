@@ -29,11 +29,11 @@ module.exports.user_list_post = async (req, res) => {
 // @private
 module.exports.user_list_status = async (req, res) => {
   const body = req.body;
-  const { id, isCompleted, isCanceled } = body;
+  const { id, isCompleted, isCanceled, isActive } = body;
   try {
     const list = await Shopping.findByIdAndUpdate(
       { _id: id },
-      { isCompleted, isCanceled }
+      { isCompleted, isCanceled, isActive }
     );
     res.status(200).send(`${id} status changed.`);
   } catch (error) {
