@@ -42,12 +42,12 @@ export function useFetch() {
     }
   };
 
-  // Everytime authenticaten status changes
-  useEffect(() => {
-    if (state.isAuthenticated) {
-      history.push('/');
-    }
-  }, [state.isAuthenticated]);
+  // // Everytime authenticaten status changes
+  // useEffect(() => {
+  //   if (state.isAuthenticated) {
+  //     history.push('/');
+  //   }
+  // }, [state.isAuthenticated]);
 
   useEffect(() => {
     const returnHook = () => {

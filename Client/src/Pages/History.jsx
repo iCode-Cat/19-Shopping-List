@@ -4,6 +4,10 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const Wrapper = styled.div``;
+const ListWrapper = styled.div`
+  display: grid;
+  gap: 2.8rem;
+`;
 const Title = styled.h1`
   font-size: 2.6rem;
   font-style: normal;
@@ -15,12 +19,11 @@ const Title = styled.h1`
 const History = () => {
   const [historyData, setHistoryData] = useState([]);
 
-  console.log(historyData);
-
   const historyListHandler = async () => {
     try {
       const history = await axios.get('/api/shopping/item/all');
       setHistoryData(history.data);
+      console.log(history.data);
     } catch (error) {
       console.log(error);
     }
@@ -33,11 +36,13 @@ const History = () => {
   return (
     <Wrapper>
       <Title>Shopping history</Title>
-      {historyData?.map((items, index) => (
-        <span key={index}>
-          <HistoryCard />
-        </span>
-      ))}
+      <ListWrapper>
+        {historyData?.map((items, index) => (
+          <span key={index}>
+            <HistoryCard {...items} />
+          </span>
+        ))}
+      </ListWrapper>
     </Wrapper>
   );
 };

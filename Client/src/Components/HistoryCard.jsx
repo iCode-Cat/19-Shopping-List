@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { useHistory } from 'react-router';
 import Icon from './Icon';
 
 const LabelTheme = {
@@ -45,16 +46,19 @@ const BoxLabel = styled.div`
   line-height: 15px;
 `;
 
-const HistoryCard = () => {
+const HistoryCard = ({ isCompleted, date, title, _id }) => {
+  const history = useHistory();
   return (
-    <Wrapper>
-      <ContainerTitle>August 2020</ContainerTitle>
+    <Wrapper onClick={() => history.push('history/' + _id)}>
+      {/* <ContainerTitle>August 2020</ContainerTitle> */}
       <Container>
         <BoxContainer>
-          <BoxTitle>Grocery List</BoxTitle>
+          <BoxTitle>{title}</BoxTitle>
           <Icon icon='date_range' color='#C1C1C4' />
-          <BoxDate>Mon 27.8.2020</BoxDate>
-          <BoxLabel status='cancelled'>cancelled</BoxLabel>
+          <BoxDate>{date}</BoxDate>
+          <BoxLabel status={isCompleted ? 'completed' : 'cancelled'}>
+            {isCompleted ? 'completed' : 'cancelled'}
+          </BoxLabel>
           <Icon icon='chevron_right' color='#F9A109' />
         </BoxContainer>
       </Container>

@@ -15,6 +15,7 @@ import History from './Pages/History';
 const Register = lazy(() => import('./Pages/Register'));
 const Login = lazy(() => import('./Pages/Login'));
 const Items = lazy(() => import('./Pages/Items'));
+const List = lazy(() => import('./Pages/List'));
 const SideMenu = lazy(() => import('../src/Components/SideMenu'));
 const Cart = lazy(() => import('./Components/Cart'));
 
@@ -54,6 +55,12 @@ function App() {
               exact
               path='/history'
               component={History}
+            />
+            <ProtectedRoute
+              State={State}
+              exact
+              path='/history/:id'
+              component={List}
             />
           </Container>
         </Switch>

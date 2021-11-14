@@ -99,7 +99,7 @@ const SideMenu = ({ Quantity }) => {
             onMouseEnter={() => setTitleOrder(index)}
             onMouseLeave={() => setTitleOrder(null)}
             onClick={setOrder}
-            to={ctx.title}
+            to={'/' + ctx.title}
             key={index}
           >
             {pathname === ctx.title && <Active />}
