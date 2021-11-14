@@ -6,7 +6,7 @@ const theme = {
     orange: 'var(--clr-orange)',
     white: 'var(--clr-white)',
     blue: 'var(--clr-blue)',
-    none: 'none',
+    none: 'var(--clr-white)',
   },
   textColors: {
     white: 'var(--clr-white)',

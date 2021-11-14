@@ -7,6 +7,8 @@ import AddItem from './AddItem';
 import ItemDetails from './ItemDetails';
 
 const Wrapper = styled.div`
+  opacity: ${(props) => (props.loading === true ? '0.4' : '1')};
+  pointer-events: ${(props) => (props.loading === true ? 'none' : 'unset')};
   @media (min-width: 50em) {
     width: 389px;
   }
@@ -15,6 +17,7 @@ const Wrapper = styled.div`
 const Index = ({ State }) => {
   const dispatch = useDispatch();
   const cartState = State.cart;
+  const loading = State.cart.loading;
   const itemState = State.items;
   const { flow, list, isActive, activeList } = cartState;
   const { items } = itemState;
@@ -26,7 +29,7 @@ const Index = ({ State }) => {
   switch (flow) {
     case 'list':
       return (
-        <Wrapper>
+        <Wrapper loading={loading ? loading : 'none'}>
           <List
             dispatch={dispatch}
             items={items}
@@ -38,13 +41,13 @@ const Index = ({ State }) => {
       );
     case 'add':
       return (
-        <Wrapper>
+        <Wrapper loading={loading ? loading : 'none'}>
           <AddItem dispatch={dispatch} />
         </Wrapper>
       );
     case 'details':
       return (
-        <Wrapper>
+        <Wrapper loading={loading ? loading : 'none'}>
           <ItemDetails dispatch={dispatch} State={State} />
         </Wrapper>
       );

@@ -9,7 +9,11 @@ const LabelTheme = {
   },
 };
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  background: #fff;
+  box-shadow: 0px 2px 12px 0px #0000000d;
+  border-radius: 12px;
+`;
 const Container = styled.div`
   display: grid;
   gap: 2.8rem;
@@ -24,9 +28,9 @@ const BoxContainer = styled.div`
   grid-template-columns: 1fr repeat(4, auto);
 
   gap: 2rem;
-  box-shadow: 0px 2px 12px 0px #0000000d;
+
   padding: 2.1rem 2rem;
-  border-radius: 12px;
+
   cursor: pointer;
 `;
 const BoxTitle = styled.p`
@@ -38,12 +42,15 @@ const BoxDate = styled.p`
   color: #c1c1c4;
 `;
 const BoxLabel = styled.div`
+  display: grid;
+  place-items: center;
   font-size: 1.2rem;
   color: ${(props) => LabelTheme.color[props.status]};
   border: 1px solid ${(props) => LabelTheme.color[props.status]};
   border-radius: 8px;
   padding: 0.4rem 0.7rem;
   line-height: 15px;
+  min-width: 75px;
 `;
 
 const HistoryCard = ({ isCompleted, date, title, _id }) => {

@@ -88,7 +88,7 @@ module.exports.getListOne = async (res, body, req) => {
     const findList = await ShoppingList.findOne({
       _id: id,
       user: userId,
-    });
+    }).populate('items');
     if (findList) return findList;
     return false;
   } catch (error) {

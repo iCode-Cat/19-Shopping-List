@@ -6,7 +6,7 @@ const initialState = {
   flow: 'list',
   list: [],
   isActive: false,
-  loading: true,
+  loading: false,
   activeList: [],
 };
 
@@ -26,6 +26,9 @@ export const cartSlice = createSlice({
   reducers: {
     setFlow: (state, action) => {
       state.flow = action.payload;
+    },
+    setLoading: (state, action) => {
+      state.loading = action.payload;
     },
     addItem: (state, action) => {
       const find = state.list.find(
@@ -86,7 +89,7 @@ export const cartSlice = createSlice({
   },
 });
 
-export const { setFlow, addItem, removeItem, quantityHandler } =
+export const { setFlow, addItem, removeItem, quantityHandler, setLoading } =
   cartSlice.actions;
 
 export default cartSlice.reducer;

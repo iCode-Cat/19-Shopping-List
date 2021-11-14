@@ -12,6 +12,7 @@ import './Global.css';
 import Container from './Components/Container';
 import { fetchItems } from './Redux/ItemsSlice';
 import History from './Pages/History';
+import Statistics from './Pages/Statistics';
 const Register = lazy(() => import('./Pages/Register'));
 const Login = lazy(() => import('./Pages/Login'));
 const Items = lazy(() => import('./Pages/Items'));
@@ -37,6 +38,7 @@ function App() {
     <Suspense fallback={<div>Loading...</div>}>
       <Router>
         {isAuthenticated && <SideMenu Quantity={State.cart.list.length} />}
+
         <Switch>
           <Route exact path='/login' component={Login} />
           <Route exact path='/register' component={Register} />
@@ -61,6 +63,12 @@ function App() {
               exact
               path='/history/:id'
               component={List}
+            />
+            <ProtectedRoute
+              State={State}
+              exact
+              path='/statistics'
+              component={Statistics}
             />
           </Container>
         </Switch>

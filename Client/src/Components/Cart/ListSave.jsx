@@ -4,7 +4,7 @@ import Button from '../Button';
 import { useFetch } from '../../Hooks/useFetch';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchCart, setFlow } from '../../Redux/cartSlice';
-import { addItem } from '../../Redux/cartSlice';
+import { addItem, setLoading } from '../../Redux/cartSlice';
 import { setId } from '../../Redux/ItemsSlice';
 
 const Wrapper = styled.div`
@@ -16,6 +16,12 @@ const Wrapper = styled.div`
   background: #fff;
   align-self: flex-end;
   padding: 1.8rem 1.4rem 1.4rem 2.2rem;
+  opacity: ${(props) => (props.loading ? '0.7' : '1')};
+
+  span {
+    background: #f9a109;
+    border-radius: 12px;
+  }
 `;
 
 const InputContainer = styled.div`
@@ -44,6 +50,7 @@ const ButtonContainer = styled.div`
 
 const ListSave = ({ flow, addItemHandler }) => {
   const state = useSelector((state) => state.cart);
+
   const itemDetail = useSelector((state) => state.items.details);
   const itemID = useSelector((state) => state.items.detailID);
   const dispatch = useDispatch();
@@ -53,6 +60,7 @@ const ListSave = ({ flow, addItemHandler }) => {
 
   const createListHandler = () => {
     if (state.list.length < 1 || !title) return alert('Empty');
+    dispatch(setLoading(true));
     setFetch({
       url: '/api/shopping/item/add',
       data: {
@@ -69,6 +77,7 @@ const ListSave = ({ flow, addItemHandler }) => {
     isCanceled = false,
     isActive,
   }) => {
+    dispatch(setLoading(true));
     setFetch({
       url: '/api/shopping/status',
       data: {
@@ -83,6 +92,7 @@ const ListSave = ({ flow, addItemHandler }) => {
   useEffect(() => {
     if (success) {
       dispatch(fetchCart());
+      dispatch(setLoading(false));
     }
   }, [success]);
 
@@ -107,6 +117,7 @@ const ListSave = ({ flow, addItemHandler }) => {
                 })
               );
               dispatch(setId(false));
+              dispatch(setFlow('list'));
             }}
           >
             <Button bgColor='orange' textColor='white' size='2rem 2.3rem'>

@@ -4,6 +4,9 @@ import { useFormFields } from '../Hooks/useFormHandler';
 import { useFetch } from '../Hooks/useFetch';
 import { Link } from 'react-router-dom';
 import Button from '../Components/Button';
+import { useEffect } from 'react';
+import { useHistory } from 'react-router';
+import { useSelector } from 'react-redux';
 
 const Wrapper = styled.section`
   display: grid;
@@ -55,13 +58,23 @@ const Input = styled.input`
 `;
 
 const Login = () => {
+  const isAuthenticated = useSelector((State) => State.user.isAuthenticated);
   const [fields, handleFieldChange] = useFormFields(false);
   const [loading, success, error, setFetch] = useFetch();
+  const history = useHistory();
+
+  console.log(isAuthenticated);
 
   const formHandler = (e) => {
     e.preventDefault();
     setFetch({ url: '/api/auth/login', data: fields, method: 'post' });
   };
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      history.push('/');
+    }
+  }, [isAuthenticated]);
 
   return (
     <Wrapper load={loading}>

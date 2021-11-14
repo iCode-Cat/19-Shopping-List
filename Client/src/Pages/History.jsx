@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import HistoryCard from '../Components/HistoryCard';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import Loading from '../Components/Loading';
 
 const Wrapper = styled.div``;
 const ListWrapper = styled.div`
@@ -17,7 +18,7 @@ const Title = styled.h1`
 `;
 
 const History = () => {
-  const [historyData, setHistoryData] = useState([]);
+  const [historyData, setHistoryData] = useState(false);
 
   const historyListHandler = async () => {
     try {
@@ -32,6 +33,9 @@ const History = () => {
   useEffect(() => {
     historyListHandler();
   }, []);
+
+  // LOADING
+  if (!historyData) return <Loading />;
 
   return (
     <Wrapper>

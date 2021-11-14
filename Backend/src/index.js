@@ -22,7 +22,7 @@ app.use(cors({ origin: process.env.ORIGIN, credentials: true }));
 app.use(
   session({
     secret: process.env.SECRET,
-    resave: false,
+    resave: true,
     saveUninitialized: true,
     proxy: true,
     store: MongoStore.create({

@@ -10,6 +10,11 @@ const Wrapper = styled.div`
   padding: 2.4rem 1.4rem 2.4rem 1.6rem;
   background: var(--clr-orangeLight);
   height: 100%;
+  h3 {
+    height: 70%;
+    display: grid;
+    place-items: center;
+  }
   @media (min-width: 50em) {
     padding: 4.3rem 3.1rem 4.3rem 4.8rem;
   }
@@ -79,19 +84,23 @@ const List = ({ items, list, isActive, activeList, dispatch }) => {
           <Button size='1.1rem 2.9rem'>Add item</Button>
         </span>
       </Header>
-      <ListWrapper>
-        <TitleContainer>
-          <Title>{activeList.title || 'Shopping List'}</Title>
-          <span>
-            <Icon icon='edit' />
-          </span>
-        </TitleContainer>
-        {loopItems.map((item) => (
-          <ListItem {...item} isActive={isActive} key={item.itemId}>
-            {item.itemName}
-          </ListItem>
-        ))}
-      </ListWrapper>
+      {loopItems.length < 1 ? (
+        <h3>No Items</h3>
+      ) : (
+        <ListWrapper>
+          <TitleContainer>
+            <Title>{activeList.title || 'Shopping List'}</Title>
+            <span>
+              <Icon icon='edit' />
+            </span>
+          </TitleContainer>
+          {loopItems.map((item) => (
+            <ListItem {...item} isActive={isActive} key={item.itemId}>
+              {item.itemName}
+            </ListItem>
+          ))}
+        </ListWrapper>
+      )}
       <ListSave flow='default' />
     </Wrapper>
   );

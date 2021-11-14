@@ -13,6 +13,8 @@ const Wrapper = styled.div`
   padding: 2.4rem 1.4rem 2.4rem 1.6rem;
   background: #fff;
   height: 100%;
+  opacity: ${(props) => (props.loading === true ? '0.4' : '1')};
+  pointer-events: ${(props) => (props.loading === true ? 'none' : 'unset')};
   @media (min-width: 50em) {
     padding: 4.3rem 3.1rem 4.3rem 4.8rem;
   }
@@ -55,7 +57,7 @@ const AddItem = ({ dispatch }) => {
   }, [category]);
 
   return (
-    <Wrapper>
+    <Wrapper loading={loading ? loading : 'none'}>
       <Title>Add a new item</Title>
       <InputContainer>
         <span onChange={(e) => handleFieldChange('item_name', e)}>
