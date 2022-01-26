@@ -9,7 +9,7 @@ const passport = require('passport');
 const connectDB = require('./config/db');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
-
+require('./config/passport');
 // PORT
 const PORT = process.env.SERVER_PORT || process.env.PORT;
 
@@ -31,12 +31,15 @@ app.use(
     }),
     cookie: {
       maxAge: 1000 * 60 * 60 * 24 * 7,
+      sameSite: 'none',
+      httpOnly: false,
+      secure: true,
     },
   })
 );
 
 // Passport Authentication
-require('./config/passport');
+
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -49,3 +52,23 @@ app.use('/api/items', ItemsRoute);
 app.use('/api/shopping', ShoppingRoute);
 
 app.listen(PORT, () => console.log(`Server Started on port ${PORT}`));
+
+const sanityClient = require('@sanity/client');
+
+const client = sanityClient({
+  projectId: '0bflv8ro',
+  dataset: 'production',
+  apiVersion: '2021-12-08', // use current UTC date - see "specifying API version"!
+  token:
+    'skhwJrSNZ4vGqOKX544hAr1EjTrZqsbjqmuUMpRPp5DooWuPsMZNAxJmdJncW7yDQeKJkUWplcuJbxQWgbgdd1ik6miVFIV7sUCq88QGrSp6BL6RFU3rSOSkqFXbbRkul4tgPgKPf9D4O2NqCWuTwTmwcRCbWqjL4MzraJoJBnqew1YaWrPJ', // or leave blank for unauthenticated usage
+  useCdn: false, // `false` if you want to ensure fresh data
+});
+const query =
+  '*[_type == "partner"] { ..., stats {...,tabMenus[]->}, steps[] {...,relatedQuestions[]->{...},fields[]-> {...,options[]{...,callRecommendation[]->,callShouldDo[]->,callWorryAbout[]->, CallOnAnswer->{...,options[]{..., CallOnAnswer->}}}}} }';
+const params = 0;
+
+const callSanity = async () => {
+  const sanity = await client.fetch(query, params);
+  console.log(sanity);
+};
+callSanity();

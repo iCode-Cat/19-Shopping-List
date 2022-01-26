@@ -66,7 +66,10 @@ const List = () => {
   const history = useHistory();
   const getHistoryById = async () => {
     try {
-      const get = await axios('/api/shopping/item/find/' + id);
+      const get = await axios(
+        'https://shopping-api-test.herokuapp.com/api/shopping/item/find/' + id,
+        { withCredentials: true }
+      );
       setData(get.data);
     } catch (error) {
       console.log(error);

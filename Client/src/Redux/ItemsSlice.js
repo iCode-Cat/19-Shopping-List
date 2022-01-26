@@ -13,9 +13,12 @@ const initialState = {
 export const fetchItems = createAsyncThunk(
   '/api/items/category/find',
   async () => {
-    const res = await axios.get('/api/items/category/find', {
-      withCredentials: true,
-    });
+    const res = await axios.get(
+      'https://shopping-api-test.herokuapp.com/api/items/category/find',
+      {
+        withCredentials: true,
+      }
+    );
     return res.data;
   }
 );

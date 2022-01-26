@@ -68,7 +68,10 @@ const Items = ({ State }) => {
   const getOneItem = async () => {
     try {
       dispatch(setLoading(true));
-      const get = await axios.get('/api/items/find/' + ItemId);
+      const get = await axios.get(
+        'https://shopping-api-test.herokuapp.com/api/items/find/' + ItemId,
+        { withCredentials: true }
+      );
       dispatch(setItem(get.data));
       // Change right component to item details
       dispatch(setFlow('details'));
@@ -98,7 +101,7 @@ const Items = ({ State }) => {
       {items &&
         items.map(
           (item, index) =>
-            item.items.length > 0 && (
+            item?.items?.length > 0 && (
               <CategoryContainer key={index}>
                 {!searchWord && (
                   <CategoryTitle>{item.category_name}</CategoryTitle>

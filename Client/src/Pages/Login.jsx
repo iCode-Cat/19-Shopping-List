@@ -63,8 +63,6 @@ const Login = () => {
   const [loading, success, error, setFetch] = useFetch();
   const history = useHistory();
 
-  console.log(isAuthenticated);
-
   const formHandler = (e) => {
     e.preventDefault();
     setFetch({ url: '/api/auth/login', data: fields, method: 'post' });

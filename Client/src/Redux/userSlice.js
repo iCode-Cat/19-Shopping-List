@@ -8,7 +8,10 @@ const initialState = {
 };
 
 export const fetchUser = createAsyncThunk('auth/api/user', async () => {
-  const res = await axios.get('/api/auth/user', { withCredentials: true });
+  const res = await axios.get(
+    'https://shopping-api-test.herokuapp.com/api/auth/user',
+    { withCredentials: true }
+  );
   return res.data;
 });
 

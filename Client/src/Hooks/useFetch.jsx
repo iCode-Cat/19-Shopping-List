@@ -28,7 +28,7 @@ export function useFetch() {
     try {
       const post = await axios({
         method: fetch.method,
-        url: fetch.url,
+        url: 'https://shopping-api-test.herokuapp.com' + fetch.url,
         data: fetch.data,
         withCredentials: true,
       });
@@ -38,7 +38,7 @@ export function useFetch() {
     } catch (error) {
       setSuccess(false);
       setLoading(false);
-      setError(error.response.data);
+      setError(error?.response?.data);
     }
   };
 

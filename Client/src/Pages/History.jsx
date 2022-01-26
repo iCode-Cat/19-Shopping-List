@@ -22,7 +22,10 @@ const History = () => {
 
   const historyListHandler = async () => {
     try {
-      const history = await axios.get('/api/shopping/item/all');
+      const history = await axios.get(
+        'https://shopping-api-test.herokuapp.com/api/shopping/item/all',
+        { withCredentials: true }
+      );
       setHistoryData(history.data);
       console.log(history.data);
     } catch (error) {
